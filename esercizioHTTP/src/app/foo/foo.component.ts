@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
  selector: 'app-foo',
  templateUrl: './foo.component.html',
+ imports: [CommonModule],
  styleUrls: ['./foo.component.css']
 })
 export class FooComponent {
@@ -36,22 +38,21 @@ export class FooComponent {
        this.loading = false;
        });
       }
+      makeCompactPost(): void {
+        this.loading = true;
+        this.http
+          .post('https://jsonplaceholder.typicode.com/posts',
+            JSON.stringify({ //Cambia qui
+              body: 'bar',
+              title: 'foo',
+              userId: 1
+            })
+          )
+          .subscribe(data => {  //CAMBIA QUI
+            this.data = data;
+            this.loading = false;
+          });
+      }
+      
 }
 
-
-
-makeCompactPost(): void {
-  this.loading = true;
-  this.http
-    .post('https://jsonplaceholder.typicode.com/posts',
-      JSON.stringify({ //Cambia qui
-        body: 'bar',
-        title: 'foo', 
-        userId: 1
-      })
-    )
-    .subscribe(data => {  //CAMBIA QUI
-      this.data = data;
-       this.loading = false;
-    })
-}
