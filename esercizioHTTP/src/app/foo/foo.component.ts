@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
  templateUrl: './foo.component.html',
  imports: [CommonModule],
  styleUrls: ['./foo.component.css']
+ 
 })
 export class FooComponent {
    data!: Object; //Il ‘!’ serve a creare variabili non inizializzate
@@ -54,5 +55,15 @@ export class FooComponent {
           });
       }
       
+      makeTypedRequest() : void
+      {
+        //oFoo : Observable<Foo[]>; va dichiarato tra gli attributi della classe 
+        this.oFoo = this.http.get<Foo[]>('https://jsonplaceholder.typicode.com/posts');
+        this.oFoo.subscribe(data => {this.fooData = data;});
+      }
+    
+      ngOnInit() {
+      }
+    
 }
 
